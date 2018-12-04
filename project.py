@@ -29,6 +29,7 @@ def newMenuItem(restaurant_id):
             name=request.form['name'], restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
+        flash('New menu item created!')
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('newmenuitem.html', restaurant_id=restaurant_id)
@@ -44,6 +45,7 @@ def editMenuItem(restaurant_id, menu_id):
             editedItem.name = request.form['name']
         session.add(editedItem)
         session.commit()
+        flash('Item edited successfully!')
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         # USE THE RENDER_TEMPLATE FUNCTION BELOW TO SEE THE VARIABLES YOU
@@ -60,11 +62,13 @@ def deleteMenuItem(restaurant_id, menu_id):
     if request.method == 'POST':
         session.delete(deleteItem)
         session.commit()
+        flash('Item deleted successfully!')
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deletemenuitem.html', restaurant_id=restaurant_id, menu_id=menu_id, item=deleteItem)
 
 
 if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)

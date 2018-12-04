@@ -2,27 +2,39 @@
 
 <body>
 
-<h1>{{restaurant.name}}</h1>
+  <h1>{{restaurant.name}}</h1>
 
-<a href='/restaurants/{{restaurant_id}}/new/'>Create new item</a>
+  <!--MESSAGE FLASHING EXAMPLE -->
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
 
-{% for i in items %}
+  <ul>
+    {% for message in messages %}
+    <li><strong>{{message}}</strong></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
 
-<div>
+  <a href='/restaurants/{{restaurant_id}}/new/'>Create new item</a>
 
-<p>{{i.name}}</p>
+  {% for i in items %}
 
-<p>{{i.description}}</p>
+  <div>
 
-<p> {{i.price}} </p>
+    <p>{{i.name}}</p>
 
-<a href='/restaurants/{{i.restaurant_id}}/{{i.id}}/edit/'>Edit</a>
-<a href='/restaurants/{{i.restaurant_id}}/{{i.id}}/delete/'>Delete</a>
+    <p>{{i.description}}</p>
 
-</div>
+    <p> {{i.price}} </p>
+
+    <a href='/restaurants/{{i.restaurant_id}}/{{i.id}}/edit/'>Edit</a>
+    <a href='/restaurants/{{i.restaurant_id}}/{{i.id}}/delete/'>Delete</a>
+
+  </div>
 
 
-{% endfor %}
+  {% endfor %}
 </body>
 
 </html>
